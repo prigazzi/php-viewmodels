@@ -1,11 +1,11 @@
 <?php
 namespace Solution\View;
 
-class ViewCollection
+class ViewCollection extends View
 {
 	private $views = null;
 
-	public function __construct(\Traversable $view)
+	public function __construct(\Traversable $views)
 	{
 		$this->views = $views;
 	}

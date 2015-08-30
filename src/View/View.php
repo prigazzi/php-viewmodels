@@ -24,14 +24,17 @@ class View
 
 	public function attachView($name, $view)
 	{
-		if ($view instanceof View) {
-			$this->attachedViews[$name] = $view;			
+		if ($view instanceof \Traversable) {
+			$view = new ViewCollection($view);
 		}
+
+		$this->attachedViews[$name] = $view;
 	}
 
 	public function parse() //Need to implement a Template Engine
 	{
 		$attachedViews = $this->attachedViews;
+
 		$this->variables["attachedView"] = function($name) use ($attachedViews) {
 			if ($attachedViews[$name] instanceof View) {
 				return $attachedViews[$name]->parse();

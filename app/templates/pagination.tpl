@@ -1,6 +1,6 @@
-<h3>Results</h3>
+<span>Pages: </span>
 <ul>
 <?php foreach (range(1, 5) as $times): ?>
-	<li>Search Result no <?=$times?></li>
+	<li><?=$times?></li>
 <?php endforeach; ?>
 </ul>
