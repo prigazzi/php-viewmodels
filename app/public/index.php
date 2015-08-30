@@ -8,7 +8,7 @@ $factory->param('App.View.SearchPage.template', __DIR__.'/../templates/searchpag
 $factory->param('App.View.Product.template', __DIR__.'/../templates/product.tpl');
 
 $factory->singleton("App.View.SearchPage", function() {
-	return new \App\View\SearchPage($this->param('App.View.SearchPage.template'));
+	return new \Solution\View\View($this->param('App.View.SearchPage.template'));
 });
 $factory->singleton('App.View.Pagination', function() {
 	return new \App\View\Pagination();
