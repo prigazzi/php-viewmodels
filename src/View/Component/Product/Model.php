@@ -1,7 +1,7 @@
 <?php
-namespace App\Model;
+namespace App\View\Component\Product;
 
-class Product
+class Model
 {
     private $resource;
 
