@@ -3,53 +3,55 @@ namespace Solution\View;
 
 class View
 {
-	private $variables = [];
-	private $attachedViews = [];
-	private $template = '';
+    private $variables = [];
+    
+    private $attachedViews = [];
 
-	public function __construct($template)
-	{
-		$this->template = $template;
-	}
+    private $template = '';
 
-	public function __get($name)
-	{
-		return $this->variables[$name] ? $this->variables[$name] : ""; //Replace by special placeholder
-	}
+    public function __construct($template)
+    {
+        $this->template = $template;
+    }
 
-	public function __set($name, $value)
-	{
-		$this->variables[$name] = $value;
-	}
+    public function __get($name)
+    {
+        return $this->variables[$name] ? $this->variables[$name] : ""; //Replace by special placeholder
+    }
 
-	public function attachView($name, $view)
-	{
-		if ($view instanceof \Traversable) {
-			$view = new ViewCollection($view);
-		}
+    public function __set($name, $value)
+    {
+        $this->variables[$name] = $value;
+    }
 
-		$this->attachedViews[$name] = $view;
-	}
+    public function attachView($name, $view)
+    {
+        if ($view instanceof \Traversable) {
+            $view = new ViewCollection($view);
+        }
 
-	public function parse() //Need to implement a Template Engine
-	{
-		$attachedViews = $this->attachedViews;
+        $this->attachedViews[$name] = $view;
+    }
 
-		$this->variables["attachedView"] = function($name) use ($attachedViews) {
-			if ($attachedViews[$name] instanceof View) {
-				return $attachedViews[$name]->parse();
-			}
+    public function parse() //Need to implement a Template Engine
+    {
+        $attachedViews = $this->attachedViews;
 
-			return "";
-		};
+        $this->variables["attachedView"] = function ($name) use ($attachedViews) {
+            if ($attachedViews[$name] instanceof View) {
+                return $attachedViews[$name]->parse();
+            }
 
-		ob_start();
+            return "";
+        };
 
-		extract($this->variables);
-		include $this->template;
+        ob_start();
 
-		$output = ob_get_clean();
+        extract($this->variables);
+        include $this->template;
 
-		return $output;
-	}
+        $output = ob_get_clean();
+
+        return $output;
+    }
 }
