@@ -41,19 +41,19 @@ $factory = new Factory();
 
 //// ------
 
-$factory->param('App.View.Componennt.Product.template', __DIR__."/../../src/View/Component/Product/template.tpl");
-$factory->param('App.View.Componennt.Price.template', __DIR__."/../../src/View/Component/Price/template.tpl");
+$factory->param('App.View.Component.Product.template', __DIR__."/../../src/View/Component/Product/template.tpl");
+$factory->param('App.View.Component.Price.template', __DIR__."/../../src/View/Component/Price/template.tpl");
 
 // How to create a Product
 $factory->factory('App.View.Component.Product.View', function ($productResource) {
     $model = new \App\View\Component\Product\Model($productResource);
-    return new \App\View\Component\Product\View($this->param('App.View.Componennt.Product.template'), $model);
+    return new \App\View\Component\Product\View($this->param('App.View.Component.Product.template'), $model);
 });
 
 // How to create a Price
 $factory->factory('App.View.Component.Price.View', function ($priceResource) {
     $model = new \App\View\Component\Price\Model($priceResource);
-    return new \App\View\Component\Price\View($this->param('App.View.Componennt.Price.template'), $model);
+    return new \App\View\Component\Price\View($this->param('App.View.Component.Price.template'), $model);
 });
 
 // How to combine Product and Price on a Search Result
